@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFONY FUND Whitepaper</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0e0e0e;
+      color: #f5f5f5;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #ffcc00;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .lang-switcher button {
+      background: #222;
+      border: 1px solid #555;
+      color: #f5f5f5;
+      padding: 0.4rem 0.8rem;
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    .lang-switcher button.active {
+      border-color: #ffcc00;
+      color: #ffcc00;
+    }
+    .download-buttons a {
+      display: inline-block;
+      margin: 10px 10px 20px 0;
+      padding: 10px 15px;
+      background-color: #ffcc00;
+      color: #000;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>AFONY FUND</h1>
+    <div class="lang-switcher">
+      <button onclick="switchLang('en')" id="btn-en" class="active">EN</button>
+      <button onclick="switchLang('ru')" id="btn-ru">RU</button>
+      <button onclick="switchLang('cn')" id="btn-cn">中文</button>
+    </div>
+  </nav>
+
+  <div class="download-buttons">
+    <a href="/AFONY_Whitepaper_EN.pdf" download>📥 Download PDF (EN)</a>
+    <a href="/AFONY_Whitepaper_RU.pdf" download>📥 Скачать PDF (RU)</a>
+    <a href="/AFONY_Whitepaper_CN.pdf" download>📥 下载 PDF (中文)</a>
+  </div>
+
+  <div id="whitepaper-text">
+    <h2>1. Introduction</h2>
+    <p>AFONY FUND is a unique investment token linked directly to real trading and investment performance, even in bear markets thanks to short strategies. Built on Solana.</p>
+    <h2>2. Token Overview</h2>
+    <ul>
+      <li><strong>AFONY:</strong> Reflects investment/trading results</li>
+      <li><strong>ARUB:</strong> Hedge against RUB devaluation via Pyth Oracle</li>
+    </ul>
+    <h2>3. Key Features</h2>
+    <ul>
+      <li>Burn mechanism (owner only)</li>
+      <li>Airdrop for early users</li>
+      <li>Referral system</li>
+      <li>Staking: fixed/variable APY</li>
+      <li>Mobile app with Phantom wallet</li>
+    </ul>
+    <h2>4. Tokenomics</h2>
+    <ul>
+      <li>Trading Pool: 40%</li>
+      <li>Airdrop & Referral: 20%</li>
+      <li>Staking Rewards: 20%</li>
+      <li>Burn Reserve: 10%</li>
+      <li>Team/Development: 10%</li>
+    </ul>
+    <h2>5. Security & Control</h2>
+    <p>All on-chain: ownership, burning, oracle updates. Audit-ready smart contracts.</p>
+    <h2>6. Roadmap</h2>
+    <ol>
+      <li>Whitepaper / Token launch</li>
+      <li>Website</li>
+      <li>Airdrop / Referral</li>
+      <li>Staking</li>
+      <li>Burn function</li>
+      <li>Mobile App</li>
+      <li>Marketing & Listings</li>
+    </ol>
+    <h2>7. Conclusion</h2>
+    <p>Join AFONY — transparent, user-driven DeFi token with real backing and strategy.</p>
+  </div>
+
+  <script>
+    const text = document.getElementById("whitepaper-text")
+    const btns = {
+      en: document.getElementById("btn-en"),
+      ru: document.getElementById("btn-ru"),
+      cn: document.getElementById("btn-cn")
+    }
+
+    const content = {
+      en: text.innerHTML,
+      ru: `<h2>1. Введение</h2><p>AFONY FUND — инвестиционный токен, напрямую связанный с реальной прибылью от торговли и инвестиций, включая сделки в short. Работает на блокчейне Solana.</p><h2>2. Обзор токенов</h2><ul><li><strong>AFONY:</strong> Отражает результат торговли и инвестиций</li><li><strong>ARUB:</strong> Хедж от падения рубля через Pyth Oracle</li></ul><h2>3. Ключевые функции</h2><ul><li>Сжигание (доступно владельцу)</li><li>Airdrop для ранних</li><li>Реферальная система</li><li>Стейкинг: фикс./плавающий доход</li><li>Приложение Phantom</li></ul><h2>4. Токеномика</h2><ul><li>Торговый пул: 40%</li><li>Airdrop и рефералка: 20%</li><li>Стейкинг: 20%</li><li>Сжигание: 10%</li><li>Команда: 10%</li></ul><h2>5. Безопасность</h2><p>Все действия ончейн, проверка, аудит, Oracle.</p><h2>6. Дорожная карта</h2><ol><li>Whitepaper / Запуск</li><li>Сайт</li><li>Airdrop / Рефералка</li><li>Стейкинг</li><li>Функция burn</li><li>Мобильное приложение</li><li>Маркетинг / листинги</li></ol><h2>7. Заключение</h2><p>AFONY — прозрачный токен с реальной основой.</p>`,
+      cn: `<h2>1. 简介</h2><p>AFONY FUND 是一个与真实投资和交易利润挂钩的代币，建立在 Solana 区块链上，即使在熊市也能增长（支持做空）。</p><h2>2. 代币概览</h2><ul><li><strong>AFONY：</strong> 反映基金交易/投资表现</li><li><strong>ARUB：</strong> 用于对抗卢布贬值</li></ul><h2>3. 主要特性</h2><ul><li>销毁机制（仅限所有者）</li><li>空投赠送</li><li>推荐奖励机制</li><li>质押功能（浮动或固定利率）</li><li>移动端支持 Phantom 钱包</li></ul><h2>4. 代币分配</h2><ul><li>交易池: 40%</li><li>空投 & 推荐: 20%</li><li>质押奖励: 20%</li><li>销毁储备: 10%</li><li>团队 & 开发: 10%</li></ul><h2>5. 安全控制</h2><p>完全链上操作，审计合约，支持 Oracle。</p><h2>6. 路线图</h2><ol><li>发布白皮书 & 启动</li><li>网站上线</li><li>空投 / 推荐计划</li><li>开启质押</li><li>Burn 功能上线</li><li>移动应用</li><li>营销与上线交易所</li></ol><h2>7. 结语</h2><p>加入 AFONY，享受透明、安全的 DeFi 投资机会。</p>`
+    }
+
+    function switchLang(lang) {
+      text.innerHTML = content[lang]
+      Object.keys(btns).forEach(k => btns[k].classList.remove('active'))
+      btns[lang].classList.add('active')
+    }
+  </script>
+</body>
+</html>

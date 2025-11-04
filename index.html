@@ -633,7 +633,7 @@
             try {
                 // Проверка наличия MetaMask
                 if (typeof window.ethereum === 'undefined') {
-                    showNotification('❌ MetaMask не установлен! Установите расширение с metamask.io', 'error');
+                    showNotification('❌ MetaMask не установлен!', 'error');
                     window.open('https://metamask.io/download/', '_blank');
                     btn.disabled = false;
                     btn.textContent = 'Подключить MetaMask';
@@ -642,24 +642,28 @@
                 
                 console.log('MetaMask обнаружен, запрос подключения...');
                 
-                // КРИТИЧНО: Запрос подключения к MetaMask
-                // Этот вызов откроет popup MetaMask для подтверждения
+                // КРИТИЧНО: Запрос подключения - ЭТО ОТКРОЕТ POPUP
                 const accounts = await window.ethereum.request({ 
                     method: 'eth_requestAccounts' 
                 });
                 
                 if (!accounts || accounts.length === 0) {
-                    throw new Error('Не удалось получить аккаунты. Разблокируйте MetaMask.');
+                    throw new Error('Аккаунты не получены');
                 }
                 
                 console.log('Аккаунты получены:', accounts);
+                userAddress = accounts[0];
+                console.log('Адрес пользователя:', userAddress);
+                
+                // Проверка что ethers загружен
+                if (typeof ethers === 'undefined') {
+                    console.error('Ethers.js не загружен!');
+                    throw new Error('Библиотека ethers.js не загружена');
+                }
                 
                 // Инициализация ethers.js
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 signer = provider.getSigner();
-                userAddress = await signer.getAddress();
-                
-                console.log('Адрес пользователя:', userAddress);
                 
                 // Получение информации о сети
                 const network = await provider.getNetwork();
@@ -684,11 +688,7 @@
                 
                 window.ethereum.on('accountsChanged', (accounts) => {
                     console.log('Аккаунт изменён:', accounts);
-                    if (accounts.length === 0) {
-                        location.reload();
-                    } else {
-                        location.reload();
-                    }
+                    location.reload();
                 });
                 
                 isConnected = true;
@@ -697,13 +697,15 @@
                 
             } catch (error) {
                 console.error('Ошибка подключения:', error);
+                console.error('Error code:', error.code);
+                console.error('Error message:', error.message);
                 
                 if (error.code === 4001) {
                     showNotification('❌ Вы отклонили запрос на подключение', 'error');
-                } else if (error.code === -32603 || error.message.includes('No active wallet')) {
-                    showNotification('❌ MetaMask заблокирован! Откройте MetaMask, введите пароль и попробуйте снова.', 'error');
+                } else if (error.code === -32603) {
+                    showNotification('❌ MetaMask: ' + error.message, 'error');
                 } else {
-                    showNotification('❌ Ошибка подключения: ' + error.message, 'error');
+                    showNotification('❌ Ошибка: ' + error.message, 'error');
                 }
                 
                 btn.disabled = false;

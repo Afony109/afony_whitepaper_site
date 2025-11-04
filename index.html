@@ -642,10 +642,15 @@
                 
                 console.log('MetaMask обнаружен, запрос подключения...');
                 
-                // Запрос подключения к MetaMask
+                // КРИТИЧНО: Запрос подключения к MetaMask
+                // Этот вызов откроет popup MetaMask для подтверждения
                 const accounts = await window.ethereum.request({ 
                     method: 'eth_requestAccounts' 
                 });
+                
+                if (!accounts || accounts.length === 0) {
+                    throw new Error('Не удалось получить аккаунты. Разблокируйте MetaMask.');
+                }
                 
                 console.log('Аккаунты получены:', accounts);
                 
@@ -695,6 +700,8 @@
                 
                 if (error.code === 4001) {
                     showNotification('❌ Вы отклонили запрос на подключение', 'error');
+                } else if (error.code === -32603 || error.message.includes('No active wallet')) {
+                    showNotification('❌ MetaMask заблокирован! Откройте MetaMask, введите пароль и попробуйте снова.', 'error');
                 } else {
                     showNotification('❌ Ошибка подключения: ' + error.message, 'error');
                 }
